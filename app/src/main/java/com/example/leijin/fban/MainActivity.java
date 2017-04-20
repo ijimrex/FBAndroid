@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,11 +20,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        android.support.v4.app.Fragment fragment=null;
+        fragment=new HomeFragment();
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_main,fragment);
+        ft.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,17 +77,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        Fragment fragment=null;
+        android.support.v4.app.Fragment fragment=null;
+
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-
+            fragment=new HomeFragment();
 
         } else if (id == R.id.nav_fav) {
+            fragment=new FavouriteFragment();
 
         } else if (id == R.id.nav_about) {
+            fragment =new AboutFragment();
 
         }
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_main,fragment);
+        ft.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
