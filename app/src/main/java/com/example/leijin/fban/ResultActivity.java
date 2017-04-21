@@ -58,22 +58,7 @@ public class ResultActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        private int[] imageResId = {// icon resource };
-                mTabLayout = (TabLayout) view.findViewById(R.id.tl_viewer);
-        mViewpager = (ViewPager) view.findViewById(R.id.vp_viewer);
-        mTabLayout.setupWithViewPager(mViewpager);
-
-
-        //Method to set up tab layout icon
-        private void setUpTabIcon() {
-            for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-
-                mTabLayout.getTabAt(i).setIcon(imageResId[i]);
-
-
-            }
-
-        }
+        
 
 
     }
