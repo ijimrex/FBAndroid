@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.about">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="192dp"
+        android:layout_height="212dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        app:srcCompat="@drawable/lei_jin" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="102dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Lei Jin"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:ems="10"
+        android:inputType="phone"
+        android:text="917*******"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/imageView3"
+        android:layout_alignStart="@+id/imageView3"
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp" />
+
+</RelativeLayout>
