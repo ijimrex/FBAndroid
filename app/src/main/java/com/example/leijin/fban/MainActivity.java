@@ -1,6 +1,7 @@
 package com.example.leijin.fban;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -83,17 +84,21 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             fragment=new HomeFragment();
+            FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_main,fragment);
+            ft.commit();
 
         } else if (id == R.id.nav_fav) {
             fragment=new FavouriteFragment();
+            FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_main,fragment);
+            ft.commit();
 
         } else if (id == R.id.nav_about) {
-            fragment =new AboutFragment();
-
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
         }
-        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_main,fragment);
-        ft.commit();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
