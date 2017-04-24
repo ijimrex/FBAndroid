@@ -55,6 +55,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
     private void search(){
         Intent intent = new Intent(getActivity(), ResultActivity.class);
+        intent.putExtra("Key", content.getText().toString());
         startActivity(intent);
     }
 }

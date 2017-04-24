@@ -1,5 +1,6 @@
 package com.example.leijin.fban;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,14 +42,13 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        this.setTitle("Result");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -64,9 +65,17 @@ public class ResultActivity extends AppCompatActivity {
         tabL.setupWithViewPager(mViewPager);
         for(int i=0;i<5;i++)
             tabL.getTabAt(i).setIcon(ICONS[i]);
-        this.setTitle("Result");
+
+
+        Intent intent = getIntent();
+        String keyword = intent.getStringExtra("Key");
+
+
+        Log.d("keyword:",keyword);
+
 
     }
+    private
 
 
     @Override
