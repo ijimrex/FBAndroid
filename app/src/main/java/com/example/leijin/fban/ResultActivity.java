@@ -40,15 +40,11 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // Create the adapter that will return a fragment for tion of the three
-        // primary sections of the activity.
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -57,9 +53,18 @@ public class ResultActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-        
-
+        final int[] ICONS = new int[] {
+                R.drawable.users,
+                R.drawable.pages,
+                R.drawable.events,
+                R.drawable.places,
+                R.drawable.groups,
+        };
+        TabLayout tabL = (TabLayout) findViewById(R.id.tabs);
+        tabL.setupWithViewPager(mViewPager);
+        for(int i=0;i<5;i++)
+            tabL.getTabAt(i).setIcon(ICONS[i]);
+        this.setTitle("Result");
 
     }
 
@@ -148,15 +153,15 @@ public class ResultActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Users";
                 case 1:
-                    return "SECTION 2";
+                    return "Pages";
                 case 2:
-                    return "SECTION 3";
+                    return "Events";
                 case 3:
-                    return "SECTION 4";
+                    return "Places";
                 case 4:
-                    return "SECTION 5";
+                    return "Groups";
 
             }
             return null;
