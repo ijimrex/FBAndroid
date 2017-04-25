@@ -1,6 +1,7 @@
 package com.example.leijin.fban;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,7 +22,14 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class ResultActivity extends AppCompatActivity {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
+
+public class ResultActivity extends AppCompatActivity  {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -65,19 +73,86 @@ public class ResultActivity extends AppCompatActivity {
         tabL.setupWithViewPager(mViewPager);
         for(int i=0;i<5;i++)
             tabL.getTabAt(i).setIcon(ICONS[i]);
-
+//        http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword=usc&lat=34.0290457&long=-118.2736882
 
         Intent intent = getIntent();
         String keyword = intent.getStringExtra("Key");
 
 
         Log.d("keyword:",keyword);
+//        String myUrl = "http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword=usc&lat=34.0290457&long=-118.2736882";
+        String myUrl="http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword=usc&lat=34.0290457&long=-118.2736882";
+        String result;
+        try {
+            result= new HttpGetRequest().execute(myUrl).get();
+            Log.d("result",result);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+//        getRequest.execute(myUrl);
+//        output =
+//                new getURLData()
+//                        .execute("http://www.domain.com/call.php?locationSearched=" + locationSearched)
+//                        .get();
+
 
 
     }
-    private
+    public class HttpGetRequest extends AsyncTask<String, Void, String> {
+        public static final String REQUEST_METHOD = "GET";
+        public static final int READ_TIMEOUT = 5000;
+        public static final int CONNECTION_TIMEOUT = 5000;
+        @Override
+        protected String doInBackground(String... params){
+            String stringUrl = params[0];
+            String result;
+            String inputLine;
 
 
+            try {
+                //Create a URL object holding our url
+                URL myUrl = new URL(stringUrl);
+                //Create a connection
+                HttpURLConnection connection =(HttpURLConnection)
+                        myUrl.openConnection();
+                //Set methods and timeouts
+                connection.setRequestMethod(REQUEST_METHOD);
+                connection.setReadTimeout(READ_TIMEOUT);
+                connection.setConnectTimeout(CONNECTION_TIMEOUT);
+
+                //Connect to our url
+                connection.connect();
+//                Log.i("acb", String.valueOf(connection));
+                //Create a new InputStreamReader
+                InputStreamReader streamReader = new
+                        InputStreamReader(connection.getInputStream());
+                //Create a new buffered reader and String Builder
+                BufferedReader reader = new BufferedReader(streamReader);
+                StringBuilder stringBuilder = new StringBuilder();
+                //Check if the line we are reading is not null
+                while((inputLine = reader.readLine()) != null){
+                    stringBuilder.append(inputLine);
+                }
+                //Close our InputStream and Buffered reader
+                reader.close();
+                streamReader.close();
+                //Set our result equal to our stringBuilder
+                result = stringBuilder.toString();
+//                Log.d("result",result);
+            }
+            catch(IOException e){
+                e.printStackTrace();
+                result = null;
+            }
+            return result;
+        }
+        protected void onPostExecute(String result){
+            Log.i("id","ok");
+            super.onPostExecute(result);
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
