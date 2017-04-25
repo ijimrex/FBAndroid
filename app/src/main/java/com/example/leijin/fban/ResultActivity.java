@@ -187,12 +187,43 @@ public class ResultActivity extends AppCompatActivity  {
         }
 
         @Override
+//  switch between fragments
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            if(getArguments().getInt(ARG_SECTION_NUMBER)==1)
+            {
+                View rootView = inflater.inflate(R.layout.fragment_user, container, false);
+                return rootView;
+
+            }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==2)
+            {
+                View rootView = inflater.inflate(R.layout.fragment_page, container, false);
+                return rootView;
+
+            }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==3)
+            {
+                View rootView = inflater.inflate(R.layout.fragment_event, container, false);
+                return rootView;
+
+            }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==4)
+            {
+                View rootView = inflater.inflate(R.layout.fragment_place, container, false);
+                return rootView;
+
+            }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==5)
+            {
+                View rootView = inflater.inflate(R.layout.fragment_group, container, false);
+                return rootView;
+
+            }else{
             View rootView = inflater.inflate(R.layout.fragment_result, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
+            return rootView;}
         }
     }
 
