@@ -46,7 +46,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         if (id==R.id.Clear)
             clearContent();
         else search();
-
 //        Log.d("in","id");
 
     }
@@ -54,8 +53,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         content.setText("");
     }
     private void search(){
+        String b=content.getText().toString().trim();
+
+        Log.d("a",b);
+        if(b.length()!=0){
         Intent intent = new Intent(getActivity(), ResultActivity.class);
         intent.putExtra("Key", content.getText().toString());
-        startActivity(intent);
+        startActivity(intent);}
     }
 }
