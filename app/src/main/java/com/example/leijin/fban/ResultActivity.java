@@ -49,13 +49,13 @@ public class ResultActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+// toolbar
         setContentView(R.layout.activity_result);
         this.setTitle("Result");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -73,15 +73,12 @@ public class ResultActivity extends AppCompatActivity  {
         tabL.setupWithViewPager(mViewPager);
         for(int i=0;i<5;i++)
             tabL.getTabAt(i).setIcon(ICONS[i]);
-//        http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword=usc&lat=34.0290457&long=-118.2736882
-
+//  get keywords and get data
         Intent intent = getIntent();
         String keyword = intent.getStringExtra("Key");
-
-
         Log.d("keyword:",keyword);
-//        String myUrl = "http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword=usc&lat=34.0290457&long=-118.2736882";
-        String myUrl="http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword=usc&lat=34.0290457&long=-118.2736882";
+        //        String myUrl = "http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword=usc&lat=34.0290457&long=-118.2736882";
+        String myUrl="http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword="+keyword+"&lat=34.0290457&long=-118.2736882";
         String result;
         try {
             result= new HttpGetRequest().execute(myUrl).get();
@@ -91,14 +88,8 @@ public class ResultActivity extends AppCompatActivity  {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-//        getRequest.execute(myUrl);
-//        output =
-//                new getURLData()
-//                        .execute("http://www.domain.com/call.php?locationSearched=" + locationSearched)
-//                        .get();
 
-
-
+//
     }
     public class HttpGetRequest extends AsyncTask<String, Void, String> {
         public static final String REQUEST_METHOD = "GET";
@@ -109,8 +100,6 @@ public class ResultActivity extends AppCompatActivity  {
             String stringUrl = params[0];
             String result;
             String inputLine;
-
-
             try {
                 //Create a URL object holding our url
                 URL myUrl = new URL(stringUrl);
@@ -124,7 +113,6 @@ public class ResultActivity extends AppCompatActivity  {
 
                 //Connect to our url
                 connection.connect();
-//                Log.i("acb", String.valueOf(connection));
                 //Create a new InputStreamReader
                 InputStreamReader streamReader = new
                         InputStreamReader(connection.getInputStream());
@@ -140,7 +128,6 @@ public class ResultActivity extends AppCompatActivity  {
                 streamReader.close();
                 //Set our result equal to our stringBuilder
                 result = stringBuilder.toString();
-//                Log.d("result",result);
             }
             catch(IOException e){
                 e.printStackTrace();
@@ -149,7 +136,6 @@ public class ResultActivity extends AppCompatActivity  {
             return result;
         }
         protected void onPostExecute(String result){
-            Log.i("id","ok");
             super.onPostExecute(result);
         }
     }
