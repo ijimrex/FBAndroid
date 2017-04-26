@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -45,6 +47,8 @@ public class ResultActivity extends AppCompatActivity  {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    public static String result="";
+//    public static String keyword="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +79,14 @@ public class ResultActivity extends AppCompatActivity  {
             tabL.getTabAt(i).setIcon(ICONS[i]);
 //  get keywords and get data
         Intent intent = getIntent();
-        String keyword = intent.getStringExtra("Key");
-        Log.d("keyword:",keyword);
+         String keyword = intent.getStringExtra("Key");
+//        Log.d("keyword:",keyword);
         //        String myUrl = "http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword=usc&lat=34.0290457&long=-118.2736882";
         String myUrl="http://lowcost-env.rvbmfe8ssv.us-west-2.elasticbeanstalk.com/fb.php?keyword="+keyword+"&lat=34.0290457&long=-118.2736882";
-        String result;
+
         try {
             result= new HttpGetRequest().execute(myUrl).get();
-            Log.d("result",result);
+//            Log.d("result",result);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -193,6 +197,13 @@ public class ResultActivity extends AppCompatActivity  {
             if(getArguments().getInt(ARG_SECTION_NUMBER)==1)
             {
                 View rootView = inflater.inflate(R.layout.fragment_user, container, false);
+                String[] items={result};
+                ListView list=(ListView) rootView.findViewById(R.id.user_list);
+                ArrayAdapter<String> ListViewAdapter=new ArrayAdapter<String>(
+                        getActivity(),
+                        android.R.layout.simple_list_item_1,items
+                );
+                list.setAdapter(ListViewAdapter);
                 return rootView;
 
             }
